@@ -39,7 +39,7 @@ function buscarEstados() {
 						});
 
                 // variável que será incremetada com <option>	
-                var option;	
+                var option = "";	
 
                 // laço para incrementar
 				for(var i=0; i < obj.length; i++){
@@ -72,7 +72,15 @@ function buscarCidades(){
     	if(requisicaoCidades.readyState === XMLHttpRequest.DONE && requisicaoCidades.status === 200) {
 
             var obj = JSON.parse(requisicaoCidades.responseText);
-            var option;	
+
+            // função para ordenar os objetos por ordem alfabética
+            obj.sort(function(a,b) {
+                        if(a.nome < b.nome) return -1;
+                        if(a.nome > b.nome) return 1;
+                        return 0;
+                    });
+
+            var option = "";	
 
 			for(var i=0; i < obj.length; i++){
 				  option+= '<option value="' + obj[i].nome+ '" id="' + obj[i].nome + '">' + obj[i].nome + '</option>';
